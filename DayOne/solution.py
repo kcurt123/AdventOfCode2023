@@ -30,21 +30,21 @@ class Solution:
     
     def day_one(self):
         try:
-            with open('input.txt', 'r') as file:
-                int_list = [int(re.sub(r'[a-zA-Z]', '', line.strip())) for line in file]
-            filtered_numbers = [num for num in int_list if num < 10]
-            duplicate = [int(f"{x}{y}") for x, y in zip(filtered_numbers, filtered_numbers)]
+            with open('input.txt', 'r') as file: #open the file and read the contents
+                int_list = [int(re.sub(r'[a-zA-Z]', '', line.strip())) for line in file] #takes the elements and removes letter and leading and trailing whitespace
+            filtered_numbers = [num for num in int_list if num < 10] # filters out the numbers 0-9
+            duplicate = [int(f"{x}{y}") for x, y in zip(filtered_numbers, filtered_numbers)] #duplicates those same numbers (1->11, 5->55)
             
-            processed_numbers = []
+            processed_numbers = [] #empty list
             for num in int_list:
                 if num >= 10:
-                    num_str = str(num)
-                    new_num = int(num_str[0] + num_str[-1]) if len(num_str) > 2 else num
-                    processed_numbers.append(new_num)
+                    num_str = str(num) #take all the numbers >= 10 and turns them into strings in order to manipulate them individually
+                    new_num = int(num_str[0] + num_str[-1]) if len(num_str) > 2 else num #take the strs we just created and grabs the first and last locations if they are greater than 2 then turning them into ints again
+                    processed_numbers.append(new_num) # append those to the list
 
-            result = sum(processed_numbers) + sum(duplicate)
+            result = sum(processed_numbers) + sum(duplicate) #add and print
             print(result)
-        except FileNotFoundError:
+        except FileNotFoundError: #error handling and needed for try except syntax
             print("File not found.")
         except ValueError:
             print("Invalid data in file.")
